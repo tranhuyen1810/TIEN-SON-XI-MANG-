@@ -9,8 +9,9 @@ import CalendarPage from './calendar/CalendarPage';
 import NotesPage from './notes/NotesPage';
 import HrmPage from './hrm/HrmPage';
 import ErpReportsPage from './reports/ErpReportsPage';
+import CementSalesPage from './cement/CementSalesPage';
 
-type ErpSubView = 'inbox' | 'tasks' | 'calendar' | 'notes' | 'hrm' | 'reports';
+type ErpSubView = 'inbox' | 'tasks' | 'calendar' | 'notes' | 'hrm' | 'reports' | 'cement';
 
 export default function ErpPage() {
   const [subView, setSubView] = useState<ErpSubView>('inbox');
@@ -91,6 +92,16 @@ export default function ErpPage() {
         </svg>
       ),
     },
+    {
+      id: 'cement',
+      label: 'Xi măng',
+      show: perms.can('erp.access'),
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M3 7h18"/><path d="M5 7l2 11h10l2-11"/><path d="M9 11h6"/><path d="M10 15h4"/>
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -107,7 +118,7 @@ export default function ErpPage() {
               <rect x="16" y="17" width="6" height="6" rx="1"/>
             </svg>
           </span>
-          <span className="text-white font-semibold text-sm">Quản lý công việc</span>
+          <span className="text-white font-semibold text-sm">ERP nội bộ</span>
         </div>
 
         {navItems.filter(i => i.show !== false).map(item => (
@@ -134,6 +145,7 @@ export default function ErpPage() {
         {subView === 'notes' && <NotesPage />}
         {subView === 'hrm' && <HrmPage />}
         {subView === 'reports' && <ErpReportsPage />}
+        {subView === 'cement' && <CementSalesPage />}
       </div>
     </div>
   );

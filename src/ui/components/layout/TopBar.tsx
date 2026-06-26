@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import ipc from '@/lib/ipc';
 
-const SUPPORT_GITHUB_URL = 'https://github.com/babyvibe/deplao-builder';
+const SUPPORT_GITHUB_URL = 'https://github.com/tranhuyen1810/TIEN-SON-XI-MANG-';
 import { useAppStore, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from '@/store/appStore';
 import { useAccountStore } from '@/store/accountStore';
 import { useUpdateStore } from '@/store/updateStore';
@@ -195,7 +195,7 @@ export default function TopBar() {
       style={{ WebkitAppRegion: 'drag' } as any}
     >
       <div className="flex items-center gap-2 px-3" style={{ WebkitAppRegion: 'no-drag' } as any}>
-        <span className="text-blue-400 font-bold text-sm">Deplao</span>
+        <span className="text-blue-400 font-bold text-sm">XI MĂNG TIÊN SƠN</span>
         <span className="text-gray-500 text-xs">v{APP_VERSION}</span>
 
         {/* Workspace switcher — only shows when multiple workspaces exist */}

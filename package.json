@@ -1,7 +1,7 @@
 {
-  "name": "Deplao",
+  "name": "xi-mang-tien-son",
   "version": "26.6.6",
-  "description": "Phần mềm desktop quản lý Zalo & Facebook cá nhân Đa tài khoản tích hợp CRM, ERP, POS, Workflow và AI Assistant giúp đội nhóm bán hàng, chăm sóc khách hàng và marketing trên Zalo vận hành tập trung trong một ứng dụng duy nhất.",
+  "description": "Phần mềm desktop XI MANG TIEN SON quan ly Zalo, Facebook da tai khoan tich hop CRM, ERP, POS, Workflow va AI Assistant cho ban hang noi bo va phan phoi xi mang.",
   "main": "dist-electron/electron/main.js",
   "scripts": {
     "postinstall": "node scripts/patch-electron-icon.js",
@@ -14,7 +14,7 @@
     "production": "npm run build:bridge-e2ee && tsc -p tsconfig.electron.prod.json && node scripts/strip-console.js && npm run build:renderer && electron-builder --publish never"
   },
   "author": "babyvibe <babyvibe@users.noreply.github.com>",
-  "homepage": "https://deplaoapp.com",
+  "homepage": "https://github.com/tranhuyen1810/TIEN-SON-XI-MANG-",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.7.8",
@@ -39,6 +39,7 @@
     "otplib": "^13.4.0",
     "proxy-agent": "^8.0.1",
     "quill": "^2.0.3",
+    "react-is": "^19.2.7",
     "react-quill-new": "^3.8.3",
     "react-zoom-pan-pinch": "^3.7.0",
     "reactflow": "^11.11.4",
@@ -88,8 +89,8 @@
     "zustand": "^5.0.12"
   },
   "build": {
-    "appId": "com.Deplao.app",
-    "productName": "Deplao",
+    "appId": "com.tienson.ximang.app",
+    "productName": "XI MANG TIEN SON",
     "forceCodeSigning": false,
     "publish": [],
     "extraResources": [
@@ -138,8 +139,10 @@
       "signAndEditExecutable": false
     },
     "protocols": {
-      "name": "Deplao Deep Link",
-      "schemes": ["deplao"]
+      "name": "XI MANG TIEN SON Deep Link",
+      "schemes": [
+        "ximangtienson"
+      ]
     },
     "nsis": {
       "oneClick": false,
@@ -171,7 +174,7 @@
       "gatekeeperAssess": false
     },
     "dmg": {
-      "title": "Deplao"
+      "title": "XI MANG TIEN SON"
     },
     "linux": {
       "target": [
@@ -182,7 +185,7 @@
       "category": "Network"
     },
     "deb": {
-      "maintainer": "babyvibe <babyvibe@users.noreply.github.com>"
+      "maintainer": "tranhuyen1810 <tranhuyen1810@users.noreply.github.com>"
     }
   }
 }

@@ -317,7 +317,7 @@ export default function Sidebar({ onAddAccount }: SidebarProps) {
             Inside ERP, fine-grained writes enforced via `useErpPermissions().can(...)` +
             IPC middleware `withErpAuth`. */}
         {hasPerm('erp') && canErpAccess && (
-        <NavBtn icon="erp"        label="Quản lý công việc"   active={view === 'erp'}        onClick={() => setView('erp')} />
+        <NavBtn icon="erp"        label="ERP & Xi măng"       active={view === 'erp'}        onClick={() => setView('erp')} />
         )}
         <NavBtn icon="settings"   label="Cài đặt"      active={view === 'settings'}   onClick={() => setView('settings')} dot={hasNewSettings} />
       </div>
