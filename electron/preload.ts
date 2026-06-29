@@ -273,6 +273,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   // ─── File ────────────────────────────────────────────────────────
   file: {
+    saveBytesToDownloads: (params: { base64: string; fileName: string }) => ipcRenderer.invoke('file:saveBytesToDownloads', params),
     openDialog: (options: any) => ipcRenderer.invoke('file:openDialog', options),
     saveImage: (params: any) => ipcRenderer.invoke('file:saveImage', params),
     getAppDataPath: () => ipcRenderer.invoke('file:getAppDataPath'),

@@ -27,6 +27,35 @@ function getFfmpegBin(): string {
 }
 
 export function registerFileIpc() {
+    ipcMain.handle('file:saveBytesToDownloads', async (_event, params: { base64: string; fileName: string }) => {
+        try {
+            if (!params?.base64 || !params?.fileName) {
+                return { success: false, error: 'Missing base64 or fileName' };
+            }
+
+            const downloadsDir = app.getPath('downloads');
+            const safeName = path.basename(params.fileName).replace(/[<>:"/\\|?*\u0000-\u001F]/g, '_');
+            const ext = path.extname(safeName);
+            const nameWithoutExt = path.basename(safeName, ext);
+            let targetPath = path.join(downloadsDir, safeName || `export_${Date.now()}.xlsx`);
+
+            // Keep existing files intact by auto-incrementing the output filename.
+            let index = 1;
+            while (fs.existsSync(targetPath)) {
+                targetPath = path.join(downloadsDir, `${nameWithoutExt}_${index}${ext}`);
+                index += 1;
+            }
+
+            const fileBuffer = Buffer.from(params.base64, 'base64');
+            fs.writeFileSync(targetPath, fileBuffer);
+
+            return { success: true, savedPath: targetPath };
+        } catch (error: any) {
+            Logger.error(`[fileIpc] saveBytesToDownloads error: ${error.message}`);
+            return { success: false, error: error.message };
+        }
+    });
+
     ipcMain.handle('file:openDialog', async (_event, options: any) => {
         try {
             const result = await dialog.showOpenDialog({

@@ -299,6 +299,7 @@ declare global {
         }>;
       };
       file: {
+        saveBytesToDownloads: (params: { base64: string; fileName: string }) => Promise<{ success: boolean; savedPath?: string; error?: string }>;
         openDialog: (options?: any) => Promise<any>;
         saveImage: (params: any) => Promise<any>;
         getAppDataPath: () => Promise<any>;
