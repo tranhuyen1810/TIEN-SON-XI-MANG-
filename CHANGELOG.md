@@ -1,5 +1,12 @@
 # Changelog
 
+## v26.6.8 - 2026-06-29
+
+### Fixed
+- CI macOS release: sua workflow publish de dung repository hien tai.
+- CI macOS release: bo sung fallback token (`secrets.GH_TOKEN || github.token`) de tranh loi `Parameter token or opts.auth is required`.
+- CI macOS release: dong bo ten release va release notes voi luong Windows.
+
 ## v26.6.7 - 2026-06-29
 
 ### Fixed
