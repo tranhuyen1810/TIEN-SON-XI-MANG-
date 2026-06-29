@@ -110,25 +110,25 @@ jobs:
       - name: 📦 Build macOS app (arm64)
         run: npx electron-builder --mac --arm64 --publish never
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
           # CSC_LINK: ${{ secrets.CSC_LINK }}
           # CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 
-      - name: 🚀 Publish .dmg lên deplao-builder
+      - name: 🚀 Publish .dmg lên GitHub Releases
         if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.publish == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          repository: babyvibe/deplao-builder
           tag_name: ${{ steps.get_tag.outputs.tag }}
-          name: "Deplao ${{ steps.get_tag.outputs.tag }}"
+          name: "XI MANG TIEN SON ${{ steps.get_tag.outputs.tag }}"
           files: |
             dist-electron-build/*.dmg
             dist-electron-build/*.blockmap
             dist-electron-build/latest-mac.yml
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GH_TOKEN || github.token }}
           draft: false
           prerelease: false
           make_latest: true
+          generate_release_notes: true
           fail_on_unmatched_files: false
 
       # ─── File .dmg sau khi publish ──────────────────────────────────────────
