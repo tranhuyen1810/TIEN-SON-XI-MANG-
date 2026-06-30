@@ -19,10 +19,10 @@ function arrayBufferToBase64(input: ArrayBuffer): string {
 }
 
 function statusClass(status: string) {
-  if (status === 'completed' || status === 'delivered' || status === 'matched' || status === 'settled') return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
-  if (status === 'shipping' || status === 'loading' || status === 'approved' || status === 'warning') return 'bg-amber-500/15 text-amber-300 border-amber-500/30';
-  if (status === 'overdue' || status === 'deviation' || status === 'cancelled') return 'bg-red-500/15 text-red-300 border-red-500/30';
-  return 'bg-slate-500/15 text-slate-300 border-slate-500/30';
+  if (status === 'completed' || status === 'delivered' || status === 'matched' || status === 'settled') return 'bg-emerald-500/15 text-white border-emerald-500/30';
+  if (status === 'shipping' || status === 'loading' || status === 'approved' || status === 'warning') return 'bg-amber-500/15 text-white border-amber-500/30';
+  if (status === 'overdue' || status === 'deviation' || status === 'cancelled') return 'bg-red-500/15 text-white border-red-500/30';
+  return 'bg-slate-500/15 text-white border-slate-500/30';
 }
 
 function severityClass(level: CementAuditLog['severity']) {
@@ -37,7 +37,7 @@ function Section({ title, subtitle, action, children }: { title: string; subtitl
       <div className="flex items-start justify-between gap-4 px-5 py-4 border-b border-slate-800 bg-slate-950/70">
         <div>
           <h2 className="text-white text-sm font-semibold tracking-wide uppercase">{title}</h2>
-          {subtitle ? <p className="text-slate-400 text-xs mt-1">{subtitle}</p> : null}
+          {subtitle ? <p className="text-white/80 text-xs mt-1">{subtitle}</p> : null}
         </div>
         {action}
       </div>
@@ -49,9 +49,9 @@ function Section({ title, subtitle, action, children }: { title: string; subtitl
 function SummaryCard({ label, value, hint }: { label: string; value: string; hint: string }) {
   return (
     <div className="rounded-2xl border border-slate-600/90 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-4 shadow-[0_10px_24px_rgba(15,23,42,0.45)]">
-      <div className="text-[11px] uppercase tracking-[0.18em] text-slate-300">{label}</div>
-      <div className="text-2xl font-extrabold text-slate-50 mt-3 leading-tight break-words">{value}</div>
-      <div className="text-xs text-slate-300/90 mt-2 leading-5">{hint}</div>
+      <div className="text-[11px] uppercase tracking-[0.18em] text-white/85">{label}</div>
+      <div className="text-2xl font-extrabold text-white mt-3 leading-tight break-words">{value}</div>
+      <div className="text-xs text-white/80 mt-2 leading-5">{hint}</div>
     </div>
   );
 }
@@ -289,23 +289,23 @@ export default function CementSalesPage() {
 
   return (
     <div className="h-full overflow-y-auto bg-[radial-gradient(circle_at_top_left,#2563eb_0%,#0f172a_24%,#020617_100%)]">
-      <div className="max-w-7xl mx-auto px-5 py-5 space-y-5 text-slate-100">
+      <div className="max-w-7xl mx-auto px-5 py-5 space-y-5 text-white">
         <div className="rounded-3xl border border-sky-400/30 bg-slate-950/80 p-6 shadow-[0_30px_100px_rgba(2,6,23,0.7)]">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
-              <div className="text-[11px] uppercase tracking-[0.32em] text-sky-300">XI MANG TIEN SON ERP</div>
+              <div className="text-[11px] uppercase tracking-[0.32em] text-white">XI MANG TIEN SON ERP</div>
               <h1 className="mt-3 text-3xl font-bold text-white">Quan ly ban hang noi bo va phan phoi xi mang</h1>
-              <p className="mt-3 text-sm leading-6 text-slate-200">
+              <p className="mt-3 text-sm leading-6 text-white/90">
                 Mot cockpit van hanh hop nhat cho CRM, ERP, POS, Workflow va AI Assistant. Don hang co the duoc tao tu hoi thoai Zalo/Facebook,
                 tiep tuc qua phieu xuat kho, can xe, dieu xe, giao nhan, cong no va bao cao ma khong can nhap lieu nhieu lan.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <button onClick={() => handleExportExcel('sales')} className="px-4 py-2 rounded-xl bg-sky-500/20 border border-sky-400/30 text-sky-200 text-sm hover:bg-sky-500/30">Xuat Excel ban hang</button>
-              <button onClick={() => handleExportExcel('inventory')} className="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-sm hover:bg-emerald-500/30">Xuat ton kho</button>
-              <button onClick={() => handleExportExcel('receivable')} className="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-200 text-sm hover:bg-amber-500/30">Xuat cong no</button>
-              <button onClick={handlePrintReport} className="px-4 py-2 rounded-xl bg-fuchsia-500/20 border border-fuchsia-400/30 text-fuchsia-200 text-sm hover:bg-fuchsia-500/30">In / PDF</button>
-              <button onClick={resetDemoData} className="px-4 py-2 rounded-xl bg-slate-800 border border-slate-600 text-slate-200 text-sm hover:bg-slate-700">Reset demo</button>
+              <button onClick={() => handleExportExcel('sales')} className="px-4 py-2 rounded-xl bg-sky-500/25 border border-sky-400/40 text-white text-sm hover:bg-sky-500/35">Xuat Excel ban hang</button>
+              <button onClick={() => handleExportExcel('inventory')} className="px-4 py-2 rounded-xl bg-emerald-500/25 border border-emerald-400/40 text-white text-sm hover:bg-emerald-500/35">Xuat ton kho</button>
+              <button onClick={() => handleExportExcel('receivable')} className="px-4 py-2 rounded-xl bg-amber-500/25 border border-amber-400/40 text-white text-sm hover:bg-amber-500/35">Xuat cong no</button>
+              <button onClick={handlePrintReport} className="px-4 py-2 rounded-xl bg-fuchsia-500/25 border border-fuchsia-400/40 text-white text-sm hover:bg-fuchsia-500/35">In / PDF</button>
+              <button onClick={resetDemoData} className="px-4 py-2 rounded-xl bg-slate-800 border border-slate-600 text-white text-sm hover:bg-slate-700">Reset demo</button>
             </div>
           </div>
         </div>
@@ -322,23 +322,23 @@ export default function CementSalesPage() {
         <Section title="Thong tin nghiep vu nhanh" subtitle="Tong hop thong tin van hanh can theo doi ngay tren man hinh Xi mang.">
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
             <div className="rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3">
-              <div className="text-xs uppercase tracking-wide text-slate-300">Phieu xuat kho cho xu ly</div>
+              <div className="text-xs uppercase tracking-wide text-white/85">Phieu xuat kho cho xu ly</div>
               <div className="mt-2 text-2xl font-bold text-white">{businessQuickInfo.pendingDispatch}</div>
             </div>
             <div className="rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3">
-              <div className="text-xs uppercase tracking-wide text-slate-300">Chuyen xe chua giao</div>
+              <div className="text-xs uppercase tracking-wide text-white/85">Chuyen xe chua giao</div>
               <div className="mt-2 text-2xl font-bold text-white">{businessQuickInfo.pendingTrips}</div>
             </div>
             <div className="rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3">
-              <div className="text-xs uppercase tracking-wide text-slate-300">Danh muc san pham</div>
+              <div className="text-xs uppercase tracking-wide text-white/85">Danh muc san pham</div>
               <div className="mt-2 text-2xl font-bold text-white">{businessQuickInfo.totalProducts}</div>
             </div>
             <div className="rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3">
-              <div className="text-xs uppercase tracking-wide text-slate-300">So kho dang van hanh</div>
+              <div className="text-xs uppercase tracking-wide text-white/85">So kho dang van hanh</div>
               <div className="mt-2 text-2xl font-bold text-white">{businessQuickInfo.totalWarehouses}</div>
             </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-slate-100">
-              <div className="text-xs uppercase tracking-wide text-slate-300">Co cau khach hang</div>
+            <div className="rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-white">
+              <div className="text-xs uppercase tracking-wide text-white/85">Co cau khach hang</div>
               <div className="mt-2 text-sm leading-6">
                 <div>Distributor: <span className="font-semibold text-white">{businessQuickInfo.customerBySegment.distributor}</span></div>
                 <div>Dealer: <span className="font-semibold text-white">{businessQuickInfo.customerBySegment.dealer}</span></div>
@@ -355,7 +355,7 @@ export default function CementSalesPage() {
                 <div key={step.label} className="rounded-2xl border border-slate-700 bg-slate-900/70 p-4">
                   <div className={`w-10 h-10 rounded-xl ${step.color} mb-3`} />
                   <div className="text-sm text-white font-semibold leading-5">{step.label}</div>
-                  <div className="text-2xl font-bold text-slate-100 mt-3">{step.count}</div>
+                  <div className="text-2xl font-bold text-white mt-3">{step.count}</div>
                 </div>
               ))}
             </div>
@@ -365,24 +365,24 @@ export default function CementSalesPage() {
             <div className="space-y-3 text-sm">
               {alerts.overdue.map((item) => (
                 <div key={item.id} className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3">
-                  <div className="text-red-200 font-medium">Cong no qua han</div>
-                  <div className="text-slate-200 mt-1">{customerMap[item.customerId]?.name}: {currency(item.amount - item.paidAmount)}</div>
+                  <div className="text-white font-medium">Cong no qua han</div>
+                  <div className="text-white mt-1">{customerMap[item.customerId]?.name}: {currency(item.amount - item.paidAmount)}</div>
                 </div>
               ))}
               {alerts.pendingWeigh.map((item) => (
                 <div key={item.id} className="rounded-xl border border-amber-500/20 bg-amber-500/10 px-4 py-3">
-                  <div className="text-amber-200 font-medium">Cho doi chieu can xe</div>
-                  <div className="text-slate-200 mt-1">Xe {item.truckPlate} - du kien {item.expectedNetKg.toLocaleString('vi-VN')} kg</div>
+                  <div className="text-white font-medium">Cho doi chieu can xe</div>
+                  <div className="text-white mt-1">Xe {item.truckPlate} - du kien {item.expectedNetKg.toLocaleString('vi-VN')} kg</div>
                 </div>
               ))}
               {alerts.stockAlerts.map((item) => (
                 <div key={item.id} className="rounded-xl border border-sky-500/20 bg-sky-500/10 px-4 py-3">
-                  <div className="text-sky-200 font-medium">Canh bao ton kho</div>
-                  <div className="text-slate-200 mt-1">{item.productName} con {tons(item.quantityTons - item.reservedTons)} tai {warehouseMap[item.warehouseId]?.name}</div>
+                  <div className="text-white font-medium">Canh bao ton kho</div>
+                  <div className="text-white mt-1">{item.productName} con {tons(item.quantityTons - item.reservedTons)} tai {warehouseMap[item.warehouseId]?.name}</div>
                 </div>
               ))}
               {!alerts.overdue.length && !alerts.pendingWeigh.length && !alerts.stockAlerts.length ? (
-                <div className="text-slate-400 text-sm">Khong co canh bao nghiem trong.</div>
+                <div className="text-white/80 text-sm">Khong co canh bao nghiem trong.</div>
               ) : null}
             </div>
           </Section>
@@ -391,8 +391,8 @@ export default function CementSalesPage() {
         <div className="grid gap-5 xl:grid-cols-[1.25fr_1fr]">
           <Section title="Don hang va bao gia" subtitle="Quan ly bao gia, don dat hang, chiet khau, khuyen mai va lich su cap nhat.">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[760px] text-sm text-slate-100">
-                <thead className="text-slate-400 border-b border-slate-800">
+              <table className="w-full min-w-[760px] text-sm text-white">
+                <thead className="text-white/85 border-b border-slate-800">
                   <tr>
                     <th className="text-left py-2 pr-3">Ma don</th>
                     <th className="text-left py-2 pr-3">Khach hang</th>
@@ -408,20 +408,20 @@ export default function CementSalesPage() {
                     <tr key={order.id} className="border-b border-slate-900/80 align-top">
                       <td className="py-3 pr-3">
                         <div className="text-white font-medium">{order.code}</div>
-                        <div className="text-xs text-slate-500">Giao {shortDate(order.deliveryDate)}</div>
+                        <div className="text-xs text-white/70">Giao {shortDate(order.deliveryDate)}</div>
                       </td>
                       <td className="py-3 pr-3">
-                        <div className="text-slate-100 break-words">{customerMap[order.customerId]?.name || order.customerId}</div>
-                        <div className="text-xs text-slate-500">{order.salesRep}</div>
+                        <div className="text-white break-words">{customerMap[order.customerId]?.name || order.customerId}</div>
+                        <div className="text-xs text-white/70">{order.salesRep}</div>
                       </td>
-                      <td className="py-3 pr-3 uppercase text-xs text-slate-300">{order.channelSource}</td>
+                      <td className="py-3 pr-3 uppercase text-xs text-white/85">{order.channelSource}</td>
                       <td className="py-3 pr-3">{tons(order.lines.reduce((sum, line) => sum + line.quantityTons, 0))}</td>
                       <td className="py-3 pr-3">{currency(getOrderAmount(order))}</td>
                       <td className="py-3 pr-3"><span className={`inline-flex px-2.5 py-1 rounded-full border text-xs ${statusClass(order.status)}`}>{order.status}</span></td>
                       <td className="py-3 text-right">
                         <div className="flex flex-wrap justify-end gap-2">
-                          <button onClick={() => advanceOrderStatus(order.id)} className="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-slate-200 hover:bg-slate-700">Day workflow</button>
-                          <button onClick={() => createDispatchNote(order.id)} className="px-3 py-1.5 rounded-lg bg-sky-500/20 border border-sky-400/30 text-xs text-sky-200 hover:bg-sky-500/30">Sinh PXK</button>
+                          <button onClick={() => advanceOrderStatus(order.id)} className="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-white hover:bg-slate-700">Day workflow</button>
+                          <button onClick={() => createDispatchNote(order.id)} className="px-3 py-1.5 rounded-lg bg-sky-500/25 border border-sky-400/40 text-xs text-white hover:bg-sky-500/35">Sinh PXK</button>
                         </div>
                       </td>
                     </tr>
@@ -434,13 +434,13 @@ export default function CementSalesPage() {
           <Section title="Tao don nhanh" subtitle="Chuyen hoi thoai thanh bao gia va don hang chi trong mot thao tac.">
             <div className="space-y-3">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Khach hang</label>
+                <label className="block text-xs text-white/85 mb-1">Khach hang</label>
                 <select value={customerId} onChange={(event) => setCustomerId(event.target.value)} className="w-full rounded-xl bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-white">
                   {customers.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-1">San pham</label>
+                <label className="block text-xs text-white/85 mb-1">San pham</label>
                 <select value={productId} onChange={(event) => {
                   setProductId(event.target.value);
                   const nextProduct = products.find((item) => item.id === event.target.value);
@@ -451,35 +451,35 @@ export default function CementSalesPage() {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">So tan</label>
+                  <label className="block text-xs text-white/85 mb-1">So tan</label>
                   <input type="number" value={quantityTons} onChange={(event) => setQuantityTons(Number(event.target.value))} className="w-full rounded-xl bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-white" />
                 </div>
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Don gia</label>
+                  <label className="block text-xs text-white/85 mb-1">Don gia</label>
                   <input type="number" value={unitPrice} onChange={(event) => setUnitPrice(Number(event.target.value))} className="w-full rounded-xl bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-white" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Nhan vien</label>
+                  <label className="block text-xs text-white/85 mb-1">Nhan vien</label>
                   <input value={salesRep} onChange={(event) => setSalesRep(event.target.value)} className="w-full rounded-xl bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-white" />
                 </div>
                 <div>
-                  <label className="block text-xs text-slate-400 mb-1">Ngay giao</label>
+                  <label className="block text-xs text-white/85 mb-1">Ngay giao</label>
                   <input type="date" value={deliveryDate} onChange={(event) => setDeliveryDate(event.target.value)} className="w-full rounded-xl bg-slate-900 border border-slate-600 px-3 py-2 text-sm text-white" />
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Nguon du lieu</label>
+                <label className="block text-xs text-white/85 mb-1">Nguon du lieu</label>
                 <div className="grid grid-cols-3 gap-2">
                   {(['zalo', 'facebook', 'manual'] as const).map((item) => (
-                    <button key={item} onClick={() => setSource(item)} className={`px-3 py-2 rounded-xl border text-sm ${source === item ? 'bg-sky-500/20 border-sky-400/40 text-sky-200' : 'bg-slate-900 border-slate-700 text-slate-300'}`}>
+                    <button key={item} onClick={() => setSource(item)} className={`px-3 py-2 rounded-xl border text-sm ${source === item ? 'bg-sky-500/25 border-sky-400/40 text-white' : 'bg-slate-900 border-slate-700 text-white/80'}`}>
                       {item.toUpperCase()}
                     </button>
                   ))}
                 </div>
               </div>
-              <button onClick={handleCreateOrder} className="w-full rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-sky-400">Lap bao gia thanh don</button>
+              <button onClick={handleCreateOrder} className="w-full rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-500">Lap bao gia thanh don</button>
             </div>
           </Section>
         </div>
@@ -495,17 +495,17 @@ export default function CementSalesPage() {
                     <div className="flex items-center justify-between gap-4">
                       <div>
                         <div className="text-white font-semibold">{warehouse.name}</div>
-                        <div className="text-xs text-slate-500">{warehouse.location} · Thu kho: {warehouse.manager}</div>
+                        <div className="text-xs text-white/70">{warehouse.location} · Thu kho: {warehouse.manager}</div>
                       </div>
-                      <div className="text-sm text-slate-300">Ton kha dung: <span className="text-white font-semibold">{tons(available)}</span></div>
+                      <div className="text-sm text-white/85">Ton kha dung: <span className="text-white font-semibold">{tons(available)}</span></div>
                     </div>
                     <div className="grid gap-3 md:grid-cols-3 mt-4">
                       {items.map((item) => (
                         <div key={item.id} className="rounded-xl border border-slate-800 bg-slate-900 p-3">
                           <div className="text-sm text-white font-medium">{item.productName}</div>
-                          <div className="text-xs text-slate-500 mt-1">{item.cementType}</div>
-                          <div className="mt-3 text-lg font-bold text-slate-100">{tons(item.quantityTons - item.reservedTons)}</div>
-                          <div className="text-xs text-slate-500 mt-1">Da giu cho don: {tons(item.reservedTons)}</div>
+                          <div className="text-xs text-white/70 mt-1">{item.cementType}</div>
+                          <div className="mt-3 text-lg font-bold text-white">{tons(item.quantityTons - item.reservedTons)}</div>
+                          <div className="text-xs text-white/70 mt-1">Da giu cho don: {tons(item.reservedTons)}</div>
                         </div>
                       ))}
                     </div>
@@ -522,15 +522,15 @@ export default function CementSalesPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-white font-semibold">{note.code}</div>
-                      <div className="text-xs text-slate-500 mt-1">{customerMap[note.customerId]?.name} · {note.productName} · {tons(note.quantityTons)}</div>
+                      <div className="text-xs text-white/70 mt-1">{customerMap[note.customerId]?.name} · {note.productName} · {tons(note.quantityTons)}</div>
                     </div>
                     <span className={`inline-flex px-2.5 py-1 rounded-full border text-xs ${statusClass(note.status)}`}>{note.status}</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-400 mt-3">
-                    <div>Kho xuat: <span className="text-slate-200">{warehouseMap[note.warehouseId]?.name}</span></div>
-                    <div>Xe: <span className="text-slate-200">{note.truckPlate}</span></div>
-                    <div>Lai xe: <span className="text-slate-200">{note.driverName}</span></div>
-                    <div>Duyet boi: <span className="text-slate-200">{note.approvedBy}</span></div>
+                  <div className="grid grid-cols-2 gap-3 text-xs text-white/80 mt-3">
+                    <div>Kho xuat: <span className="text-white">{warehouseMap[note.warehouseId]?.name}</span></div>
+                    <div>Xe: <span className="text-white">{note.truckPlate}</span></div>
+                    <div>Lai xe: <span className="text-white">{note.driverName}</span></div>
+                    <div>Duyet boi: <span className="text-white">{note.approvedBy}</span></div>
                   </div>
                 </div>
               ))}
@@ -546,15 +546,15 @@ export default function CementSalesPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-white font-semibold">{ticket.truckPlate}</div>
-                      <div className="text-xs text-slate-500 mt-1">Lan 1: {ticket.firstWeightKg.toLocaleString('vi-VN')} kg · Du kien {ticket.expectedNetKg.toLocaleString('vi-VN')} kg</div>
+                      <div className="text-xs text-white/70 mt-1">Lan 1: {ticket.firstWeightKg.toLocaleString('vi-VN')} kg · Du kien {ticket.expectedNetKg.toLocaleString('vi-VN')} kg</div>
                     </div>
                     <span className={`inline-flex px-2.5 py-1 rounded-full border text-xs ${statusClass(ticket.status)}`}>{ticket.status}</span>
                   </div>
-                  <div className="text-xs text-slate-400 mt-3">
+                  <div className="text-xs text-white/80 mt-3">
                     {ticket.secondWeightKg ? `Lan 2: ${ticket.secondWeightKg.toLocaleString('vi-VN')} kg · Thuc te ${ticket.actualNetKg?.toLocaleString('vi-VN')} kg · Sai lech ${ticket.deviationKg?.toLocaleString('vi-VN')} kg` : 'Chua co ket qua can lan 2'}
                   </div>
                   {ticket.status === 'pending' ? (
-                    <button onClick={() => reconcileWeighing(ticket.id)} className="mt-3 px-3 py-1.5 rounded-lg bg-amber-500/20 border border-amber-400/30 text-xs text-amber-200 hover:bg-amber-500/30">Chot ket qua can</button>
+                    <button onClick={() => reconcileWeighing(ticket.id)} className="mt-3 px-3 py-1.5 rounded-lg bg-amber-500/25 border border-amber-400/40 text-xs text-white hover:bg-amber-500/35">Chot ket qua can</button>
                   ) : null}
                 </div>
               ))}
@@ -568,16 +568,16 @@ export default function CementSalesPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-white font-semibold">{trip.truckPlate} · {trip.routeName}</div>
-                      <div className="text-xs text-slate-500 mt-1">{trip.carrier} · Lai xe {trip.driverName} · ETA {shortDate(trip.eta)}</div>
+                      <div className="text-xs text-white/70 mt-1">{trip.carrier} · Lai xe {trip.driverName} · ETA {shortDate(trip.eta)}</div>
                     </div>
                     <span className={`inline-flex px-2.5 py-1 rounded-full border text-xs ${statusClass(trip.status)}`}>{trip.status}</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-400 mt-3">
-                    <div>Checkpoint: <span className="text-slate-200">{trip.gateCheckpoint}</span></div>
-                    <div>Chi phi VC: <span className="text-slate-200">{currency(trip.freightCost)}</span></div>
+                  <div className="grid grid-cols-2 gap-3 text-xs text-white/80 mt-3">
+                    <div>Checkpoint: <span className="text-white">{trip.gateCheckpoint}</span></div>
+                    <div>Chi phi VC: <span className="text-white">{currency(trip.freightCost)}</span></div>
                   </div>
                   {trip.status !== 'delivered' ? (
-                    <button onClick={() => markTripDelivered(trip.id)} className="mt-3 px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/30 text-xs text-emerald-200 hover:bg-emerald-500/30">Xac nhan giao hang</button>
+                    <button onClick={() => markTripDelivered(trip.id)} className="mt-3 px-3 py-1.5 rounded-lg bg-emerald-500/25 border border-emerald-400/40 text-xs text-white hover:bg-emerald-500/35">Xac nhan giao hang</button>
                   ) : null}
                 </div>
               ))}
@@ -588,8 +588,8 @@ export default function CementSalesPage() {
         <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
           <Section title="Cong no" subtitle="Theo doi theo khach hang, don hang, dai ly va canh bao qua han.">
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-slate-400 border-b border-slate-800">
+              <table className="w-full text-sm text-white">
+                <thead className="text-white/85 border-b border-slate-800">
                   <tr>
                     <th className="text-left py-2 pr-3">Khach hang</th>
                     <th className="text-left py-2 pr-3">Don hang</th>
@@ -608,7 +608,7 @@ export default function CementSalesPage() {
                       <td className="py-3 pr-3">{currency(item.amount - item.paidAmount)}</td>
                       <td className="py-3 pr-3"><span className={`inline-flex px-2.5 py-1 rounded-full border text-xs ${statusClass(item.status)}`}>{item.status}</span></td>
                       <td className="py-3 text-right">
-                        <button onClick={() => recordPayment(item.id)} className="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-slate-200 hover:bg-slate-700">Ghi nhan thu tien</button>
+                        <button onClick={() => recordPayment(item.id)} className="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs text-white hover:bg-slate-700">Ghi nhan thu tien</button>
                       </td>
                     </tr>
                   ))}
@@ -620,7 +620,7 @@ export default function CementSalesPage() {
           <Section title="AI Assistant" subtitle="Goi y uu tien xu ly, nhac lich cham soc va sinh noi dung tu van.">
             <div className="space-y-3">
               {aiSuggestions.map((item) => (
-                <div key={item} className="rounded-2xl border border-sky-500/20 bg-sky-500/10 p-4 text-sm text-slate-100 leading-6">{item}</div>
+                <div key={item} className="rounded-2xl border border-sky-500/20 bg-sky-500/10 p-4 text-sm text-white leading-6">{item}</div>
               ))}
             </div>
           </Section>
@@ -634,16 +634,16 @@ export default function CementSalesPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-white font-semibold">{customer.name}</div>
-                      <div className="text-xs text-slate-500 mt-1">{customer.region} · {customer.segment} · Nguon {customer.source.toUpperCase()}</div>
+                      <div className="text-xs text-white/70 mt-1">{customer.region} · {customer.segment} · Nguon {customer.source.toUpperCase()}</div>
                     </div>
-                    <div className="text-right text-xs text-slate-400">
-                      <div>Han muc: <span className="text-slate-100">{currency(customer.creditLimit)}</span></div>
-                      <div className="mt-1">Cong no: <span className="text-slate-100">{currency(customer.outstandingDebt)}</span></div>
+                    <div className="text-right text-xs text-white/80">
+                      <div>Han muc: <span className="text-white">{currency(customer.creditLimit)}</span></div>
+                      <div className="mt-1">Cong no: <span className="text-white">{currency(customer.outstandingDebt)}</span></div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-3 text-xs text-slate-400 mt-3">
-                    <div>CS gia: <span className="text-slate-200">{customer.pricePolicy}</span></div>
-                    <div>Lan cuoi: <span className="text-slate-200">{shortDate(customer.lastInteraction)}</span></div>
+                  <div className="grid grid-cols-2 gap-3 text-xs text-white/80 mt-3">
+                    <div>CS gia: <span className="text-white">{customer.pricePolicy}</span></div>
+                    <div>Lan cuoi: <span className="text-white">{shortDate(customer.lastInteraction)}</span></div>
                   </div>
                 </div>
               ))}
@@ -656,9 +656,9 @@ export default function CementSalesPage() {
                 <div key={log.id} className={`rounded-2xl border p-4 ${severityClass(log.severity)}`}>
                   <div className="flex items-center justify-between gap-4">
                     <div className="text-sm font-medium text-white">{log.actor}</div>
-                    <div className="text-xs text-slate-400">{shortDate(log.createdAt)}</div>
+                    <div className="text-xs text-white/75">{shortDate(log.createdAt)}</div>
                   </div>
-                  <div className="text-sm text-slate-200 mt-2 leading-6">{log.message}</div>
+                  <div className="text-sm text-white mt-2 leading-6">{log.message}</div>
                 </div>
               ))}
             </div>
