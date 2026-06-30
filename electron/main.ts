@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, shell, Tray, Menu, nativeImage, protocol, net, Notification } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as https from 'https';
 import { autoUpdater } from 'electron-updater';
 import * as cron from 'node-cron';
 import DatabaseService from '../src/services/database/DatabaseService';
@@ -37,6 +38,75 @@ import { SHOW_DEV_TOOLS, IS_DEV_BUILD } from '../src/configs/BuildConfig';
 
 const isDev = IS_DEV_BUILD;
 let isQuitting = false;
+
+const DEFAULT_UPDATE_MANIFEST_URL = 'https://github.com/tranhuyen1810/TIEN-SON-XI-MANG-/releases/latest/download/update-manifest.json';
+const UPDATE_MANIFEST_URL = process.env.UPDATE_MANIFEST_URL || DEFAULT_UPDATE_MANIFEST_URL;
+
+function normalizeVersion(input: string): string {
+  return String(input || '').trim().replace(/^v/i, '');
+}
+
+function compareSemver(a: string, b: string): number {
+  const left = normalizeVersion(a).split('.').map((part) => Number.parseInt(part, 10) || 0);
+  const right = normalizeVersion(b).split('.').map((part) => Number.parseInt(part, 10) || 0);
+  const max = Math.max(left.length, right.length, 3);
+  for (let i = 0; i < max; i += 1) {
+    const lv = left[i] || 0;
+    const rv = right[i] || 0;
+    if (lv > rv) return 1;
+    if (lv < rv) return -1;
+  }
+  return 0;
+}
+
+function fetchJson(url: string, timeoutMs = 12000): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const req = https.get(url, { headers: { Accept: 'application/json' } }, (res) => {
+      if (!res.statusCode || res.statusCode < 200 || res.statusCode >= 300) {
+        reject(new Error(`HTTP ${res.statusCode || 0}`));
+        res.resume();
+        return;
+      }
+      let body = '';
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => { body += chunk; });
+      res.on('end', () => {
+        try {
+          resolve(JSON.parse(body));
+        } catch {
+          reject(new Error('Invalid JSON manifest'));
+        }
+      });
+    });
+    req.setTimeout(timeoutMs, () => {
+      req.destroy(new Error('Manifest request timeout'));
+    });
+    req.on('error', reject);
+  });
+}
+
+async function checkManifestAndNotifyRenderer() {
+  try {
+    const manifest = await fetchJson(UPDATE_MANIFEST_URL);
+    const current = app.getVersion();
+    const latestRaw = manifest?.version || manifest?.latestVersion;
+    const latest = normalizeVersion(latestRaw);
+    if (!latest) return;
+    if (compareSemver(latest, current) <= 0) return;
+
+    const versionWithPrefix = latest.startsWith('v') ? latest : `v${latest}`;
+    const notes = manifest?.releaseNotes || `Đã có phiên bản mới (${versionWithPrefix}). Bạn có muốn cập nhật ngay không?`;
+
+    mainWindow?.webContents.send('update:manifest-available', {
+      version: latest,
+      releaseNotes: notes,
+      manifestUrl: UPDATE_MANIFEST_URL,
+      publishedAt: manifest?.publishedAt || null,
+    });
+  } catch (error: any) {
+    console.warn('[AutoUpdate] Manifest check skipped:', error?.message || error);
+  }
+}
 
 // ─── Hardware acceleration ────────────────────────────────────────────────────
 // Giữ GPU acceleration BẬT: tắt hardware acceleration khiến CPU render toàn bộ UI,
@@ -898,12 +968,15 @@ app.whenReady().then(async () => {
 
   // Check for updates
   if (!isDev) {
-    autoUpdater.autoDownload = true;          // tự tải nền — phù hợp app chạy 24/7
+    autoUpdater.autoDownload = false;         // tải khi user đồng ý
     autoUpdater.autoInstallOnAppQuit = true; // tự cài khi quit nếu đã tải xong
 
+    // Kiểm tra manifest khi khởi động để có prompt Yes/No rõ ràng theo release mới
+    checkManifestAndNotifyRenderer();
+
     // Check lần đầu khi khởi động và mỗi 4 giờ
-    autoUpdater.checkForUpdatesAndNotify();
-    setInterval(() => autoUpdater.checkForUpdatesAndNotify(), 4 * 60 * 60 * 1000);
+    autoUpdater.checkForUpdates();
+    setInterval(() => autoUpdater.checkForUpdates(), 4 * 60 * 60 * 1000);
 
     autoUpdater.on('update-available', (info) => {
       mainWindow?.webContents.send('update:available', {

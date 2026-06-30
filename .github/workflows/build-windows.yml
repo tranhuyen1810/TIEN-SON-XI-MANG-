@@ -81,6 +81,30 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
 
+      - name: 🧾 Generate update manifest
+        shell: bash
+        run: |
+          TAG="${{ steps.get_tag.outputs.tag }}"
+          VERSION="${TAG#v}"
+          REPO="${{ github.repository }}"
+          EXE_FILE=$(ls dist-electron-build/*.exe | head -n 1)
+          EXE_NAME=$(basename "$EXE_FILE")
+          cat > dist-electron-build/update-manifest.json <<EOF
+          {
+            "version": "${VERSION}",
+            "tag": "${TAG}",
+            "releaseNotes": "Đã có phiên bản mới (v${VERSION}). Bạn có muốn cập nhật ngay không?",
+            "publishedAt": "${{ github.event.head_commit.timestamp || github.run_id }}",
+            "repository": "${REPO}",
+            "assets": {
+              "win32": {
+                "name": "${EXE_NAME}",
+                "url": "https://github.com/${REPO}/releases/download/${TAG}/${EXE_NAME}"
+              }
+            }
+          }
+          EOF
+
       - name: 🚀 Publish lên GitHub Releases
         if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.publish == 'true'
         uses: softprops/action-gh-release@v2
@@ -91,6 +115,7 @@ jobs:
             dist-electron-build/*.exe
             dist-electron-build/*.blockmap
             dist-electron-build/latest.yml
+            dist-electron-build/update-manifest.json
           token: ${{ secrets.GH_TOKEN || github.token }}
           draft: false
           prerelease: false

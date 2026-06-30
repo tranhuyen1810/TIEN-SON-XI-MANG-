@@ -128,7 +128,9 @@ export default function ErpPage() {
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
               subView === item.id
                 ? 'bg-blue-600 text-white'
-                : 'text-gray-400 hover:bg-gray-700/60 hover:text-gray-200'
+                : subView === 'cement'
+                  ? 'text-white/80 hover:bg-gray-700/60 hover:text-white'
+                  : 'text-gray-400 hover:bg-gray-700/60 hover:text-gray-200'
             }`}
           >
             {item.icon}

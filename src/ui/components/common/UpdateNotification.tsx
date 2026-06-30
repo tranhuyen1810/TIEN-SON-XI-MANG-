@@ -18,6 +18,7 @@ export function UpdateNotification() {
   const stallTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isLight = useAppStore(s => s.theme) === 'light';
   const isMac = platform === 'darwin';
+  const versionText = updateInfo?.version?.startsWith('v') ? updateInfo.version : `v${updateInfo?.version || ''}`;
 
   // Bắt đầu đếm ngược khi đã tải xong
   const startCountdown = useCallback(() => {
@@ -73,6 +74,14 @@ export function UpdateNotification() {
     }, DOWNLOAD_STALL_TIMEOUT_MS);
   }, [setError, setStatus, setProgress]);
 
+  const handleStartDownloadNow = useCallback(() => {
+    setError(null);
+    setStatus('downloading');
+    setProgress(null);
+    (window as any).electronAPI?.update?.download();
+    resetStallTimer();
+  }, [resetStallTimer, setError, setProgress, setStatus]);
+
   // Stall timer helper
   const resetStallTimer = useCallback(() => {
     if (stallTimerRef.current) clearTimeout(stallTimerRef.current);
@@ -90,7 +99,15 @@ export function UpdateNotification() {
       setDismissed(false);
       setError(null);
       setStatus('available');
-      resetStallTimer();
+      setProgress(null);
+    });
+
+    const offManifestAvailable = api.on('update:manifest-available', (info: UpdateInfo) => {
+      setUpdateInfo(info);
+      setDismissed(false);
+      setError(null);
+      setStatus('available');
+      setProgress(null);
     });
 
     const offProgress = api.on('update:progress', (p: ProgressInfo) => {
@@ -114,15 +131,23 @@ export function UpdateNotification() {
       if (stallTimerRef.current) clearTimeout(stallTimerRef.current);
     });
 
+    const offNotAvailable = api.on('update:not-available', () => {
+      if (useUpdateStore.getState().status === 'idle') return;
+      if (useUpdateStore.getState().status === 'available' && useUpdateStore.getState().updateInfo) return;
+      setStatus('idle');
+    });
+
     return () => {
       offAvailable?.();
+      offManifestAvailable?.();
       offProgress?.();
       offDownloaded?.();
+      offNotAvailable?.();
       offError?.();
       if (countdownRef.current) clearInterval(countdownRef.current);
       if (stallTimerRef.current) clearTimeout(stallTimerRef.current);
     };
-  }, [startCountdown, resetStallTimer, setStatus, setUpdateInfo, setProgress, setError, setDismissed]);
+  }, [startCountdown, setStatus, setUpdateInfo, setProgress, setError, setDismissed]);
 
   if (!updateInfo || dismissed) return null;
 
@@ -149,7 +174,7 @@ export function UpdateNotification() {
       <div className="flex items-start justify-between gap-2 mb-2">
         <div>
           <p className="font-bold text-sm">🆕 Bản cập nhật mới</p>
-          <p className={`text-xs ${isLight ? 'text-gray-500' : 'text-blue-100'}`}>Phiên bản {updateInfo.version}</p>
+          <p className={`text-xs ${isLight ? 'text-gray-500' : 'text-blue-100'}`}>Phiên bản {versionText}</p>
         </div>
         {/* Nút hoãn có dropdown — ẩn khi đã tải xong (dùng nút riêng bên dưới) */}
         {status !== 'downloaded' && (
@@ -202,11 +227,42 @@ export function UpdateNotification() {
         </div>
       )}
 
-      {/* Đang đợi tải (autoDownload đã bật, chưa có progress, chưa lỗi) */}
-      {(status === 'available' || (status === 'downloading' && !progress)) && !showStallOrError && (
+      {/* Bước xác nhận update thủ công */}
+      {status === 'available' && !showStallOrError && (
         <div className="mt-1 space-y-1">
           <p className={`text-xs ${isLight ? 'text-gray-500' : 'text-blue-100'}`}>
-            ⏳ Đang chuẩn bị tải bản cập nhật...
+            Đã có phiên bản mới ({versionText}). Bạn có muốn cập nhật ngay không?
+          </p>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <button
+              onClick={handleStartDownloadNow}
+              className={`text-xs font-semibold py-1.5 rounded-lg transition-colors ${
+                isLight
+                  ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                  : 'bg-white/20 hover:bg-white/30 text-white'
+              }`}
+            >
+              Có (Yes)
+            </button>
+            <button
+              onClick={() => handlePostpone(POSTPONE_MS)}
+              className={`text-xs font-semibold py-1.5 rounded-lg transition-colors ${
+                isLight
+                  ? 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                  : 'bg-white/10 hover:bg-white/20 text-white'
+              }`}
+            >
+              Không (No)
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Đang tải sau khi user đã đồng ý */}
+      {status === 'downloading' && !progress && !showStallOrError && (
+        <div className="mt-1 space-y-1">
+          <p className={`text-xs ${isLight ? 'text-gray-500' : 'text-blue-100'}`}>
+            ⏳ Đang tải bản cập nhật...
           </p>
         </div>
       )}
