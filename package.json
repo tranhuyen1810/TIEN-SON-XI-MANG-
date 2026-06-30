@@ -1,6 +1,6 @@
 {
   "name": "xi-mang-tien-son",
-  "version": "26.6.8",
+  "version": "26.6.9",
   "description": "Phần mềm desktop XI MANG TIEN SON quan ly Zalo, Facebook da tai khoan tich hop CRM, ERP, POS, Workflow va AI Assistant cho ban hang noi bo va phan phoi xi mang.",
   "main": "dist-electron/electron/main.js",
   "scripts": {
