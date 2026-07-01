@@ -38,8 +38,7 @@
 
 
 ## 🛠️ Công nghệ & ngôn ngữ sử dụng
-
-Deplao hiện được xây dựng trên các công nghệ chính sau:
+APP hiện được xây dựng trên các công nghệ chính sau:
 
 - **Thư viện chính:** zca-js & fbchat-v2
 - **AI Gateway:** 9router
