@@ -35,56 +35,6 @@
 
 ---
 
-## ⬇️ Tải xuống
-
-<table>
-<tr>
-<td align="center" width="50%">
-
-<a href="https://github.com/babyvibe/deplao-builder/releases/latest/download/Deplao-Setup-26.6.6.exe">
-<img src="https://img.shields.io/badge/🪟_Windows_10/11-v26.6.6-0078d4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows" />
-</a>
-
-<big><strong>Deplao-Setup-26.6.6.exe</strong></big>
-
-</td>
-<td align="center" width="50%">
-
-<a href="https://github.com/babyvibe/deplao-builder/releases/latest/download/Deplao-26.6.6-arm64.dmg">
-<img src="https://img.shields.io/badge/🍎_macOS_M1+-v26.6.6-000000?style=for-the-badge&logo=apple&logoColor=white" alt="Download macOS Apple Silicon" />
-</a>
-
-<big><strong>Deplao-26.6.6-arm64.dmg</strong></big>
-
-</td>
-</tr>
-<tr>
-<td align="center" width="50%">
-
-<a href="https://github.com/babyvibe/deplao-builder/releases/latest/download/Deplao-26.6.6.AppImage">
-<img src="https://img.shields.io/badge/🐧_Ubuntu_Linux-v26.6.6-e95420?style=for-the-badge&logo=ubuntu&logoColor=white" alt="Download Ubuntu" />
-</a>
-
-<big><strong>Deplao-26.6.6.AppImage</strong></big><br>
-<big>chạy mọi distro — <code>chmod +x</code> là dùng được</big>
-
-</td>
-<td align="center" width="50%">
-
-<a href="https://github.com/babyvibe/deplao-builder/releases/latest/download/Deplao-26.6.6.dmg">
-<img src="https://img.shields.io/badge/🍎_macOS_Intel-v26.6.6-555555?style=for-the-badge&logo=apple&logoColor=white" alt="Download macOS Intel" />
-</a>
-
-<big><strong>Deplao-26.6.6.dmg</strong></big>
-
-</td>
-</tr>
-</table>
-
-<p align="center">
-👉 <strong><a href="https://github.com/babyvibe/deplao-builder/releases">Xem tất cả phiên bản</a></strong>
-</p>
-
 
 
 ## 🛠️ Công nghệ & ngôn ngữ sử dụng
